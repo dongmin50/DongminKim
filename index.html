@@ -3,414 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>홍길동 | Portfolio</title>
+    <title>Hanseob Kim | DXP Lab</title>
+    <!-- 폰트어썸 (아이콘) 무료 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 구글 폰트 (Pretendard 대체용 널리 쓰이는 Noto Sans KR) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* 기본 스타일 초기화 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        :root {
+            /* 건양대학교 메인 그린 컬러 톤 적용 */
+            --primary-color: #005a3c; 
+            --primary-light: #007a52;
+            --primary-dark: #003d29;
+            --text-color: #333333;
+            --text-light: #666666;
+            --bg-color: #f4f7f6;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
         }
 
-        html {
-            scroll-behavior: smooth;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            color: #333;
-            background-color: #f8f9fa;
+            font-family: 'Noto Sans KR', sans-serif;
             line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-top: 70px; /* 네비게이션 바 높이만큼 여백 */
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* 네비게이션 바 */
-        header {
+        /* Top Navigation Bar */
+        .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 1px 10px rgba(0,0,0,0.05);
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1140px;
-            margin: 0 auto;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 1rem 5%;
+            z-index: 1000;
         }
 
-        .logo {
+        .nav-logo {
             font-size: 1.2rem;
             font-weight: 700;
-            color: #2563eb;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 25px;
+            gap: 20px;
         }
 
         .nav-links a {
-            font-size: 0.95rem;
+            text-decoration: none;
+            color: var(--text-color);
             font-weight: 500;
-            transition: color 0.3s;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: var(--transition);
         }
 
         .nav-links a:hover {
-            color: #2563eb;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
         }
 
-        /* 공통 섹션 스타일 */
-        section {
-            padding: 100px 20px 80px 20px;
-            max-width: 1140px;
-            margin: 0 auto;
+        .nav-links a.active {
+            background-color: var(--primary-color);
+            color: var(--white);
         }
 
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 40px;
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 5rem 2rem;
             text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero .role {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: -3rem auto 3rem;
+            padding: 0 20px;
             position: relative;
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 4px;
-            background-color: #2563eb;
-            margin: 10px auto 0 auto;
-            border-radius: 2px;
-        }
-
-        /* 홈 섹션 */
-        #home {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        /* About Section */
+        .about-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
             text-align: center;
-            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%);
-            max-width: 100%;
-            padding: 0 20px;
         }
 
-        #home h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #1e293b;
+        .about-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
         }
 
-        #home h1 span {
-            color: #2563eb;
+        /* Cards Layout (CSS Grid) */
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--text-color);
         }
 
-        #home p {
-            font-size: 1.2rem;
-            color: #64748b;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: #2563eb;
-            color: white;
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        .btn:hover {
-            background-color: #1d4ed8;
-            transform: translateY(-2px);
-        }
-
-        /* 소개 섹션 */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .about-img {
-            width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            background-color: #e2e8f0;
-            aspect-ratio: 1 / 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #94a3b8;
-        }
-
-        .about-text h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .about-text p {
-            color: #475569;
-            margin-bottom: 20px;
-        }
-
-        .info-list {
-            list-style: none;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .info-list li strong {
-            color: #2563eb;
-        }
-
-        /* 기술 스택 섹션 */
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .skill-badge {
-            background-color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 500;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-        }
-
-        /* 프로젝트 섹션 */
-        .project-grid {
+        .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .project-card {
-            background-color: white;
+        .card {
+            background: var(--white);
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+            transition: var(--transition);
         }
 
-        .project-card:hover {
-            transform: translateY(-5px);
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
-        .project-img {
+        .card-img {
+            width: 100%;
             height: 200px;
-            background-color: #cbd5e1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #64748b;
+            object-fit: cover;
         }
 
-        .project-info {
-            padding: 25px;
+        .card-content {
+            padding: 1.5rem;
         }
 
-        .project-info h3 {
-            margin-bottom: 10px;
-            font-size: 1.3rem;
+        .card-content i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        .project-info p {
-            color: #64748b;
+        .card-content h3 {
+            margin-bottom: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .card-content p {
+            color: var(--text-light);
             font-size: 0.95rem;
-            margin-bottom: 15px;
         }
 
-        .project-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .project-tags span {
-            font-size: 0.8rem;
-            background-color: #f1f5f9;
-            color: #475569;
-            padding: 4px 10px;
-            border-radius: 4px;
-        }
-
-        /* 푸터(연락처) */
-        footer {
-            background-color: #1e293b;
-            color: white;
+        /* Contact Section */
+        .contact-section {
             text-align: center;
-            padding: 50px 20px;
-        }
-
-        footer h2 {
-            margin-bottom: 20px;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         .contact-links {
-            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
 
-        .contact-links a {
-            margin: 0 15px;
-            color: #94a3b8;
-            transition: color 0.3s;
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
         }
 
-        .contact-links a:hover {
-            color: white;
+        .btn-outline {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
         }
 
-        footer p {
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-fill {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-fill:hover {
+            background: var(--primary-dark);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-light);
             font-size: 0.9rem;
-            color: #64748b;
-        }
-
-        /* 반응형 스타일 */
-        @media (max-width: 768px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-            .info-list {
-                grid-template-columns: 1fr;
-            }
-            #home h1 {
-                font-size: 2.2rem;
-            }
-            .nav-links {
-                display: none; /* 모바일 단순화를 위해 링크 숨김 (필요시 햄버거 메뉴 구현 가능) */
-            }
+            border-top: 1px solid #e2e8f0;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <div class="logo">Gildong's Portfolio</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </header>
+<!-- Top Navigation -->
+<nav class="navbar">
+    <a href="#" class="nav-logo">
+        <i class="fa-solid fa-vr-cardboard"></i> DXP Lab
+    </a>
+    <ul class="nav-links">
+        <li><a href="#" class="active"><i class="fa-solid fa-wand-magic-sparkles"></i> 현재 페이지 (Modern)</a></li>
+        <!-- 이전 페이지 파일명을 old.html 혹은 previous.html 로 맞추어 학생들에게 링크 이동을 시연하시면 됩니다 -->
+        <li><a href="index_initial.html"><i class="fa-solid fa-clock-rotate-left"></i> 이전 페이지 (Basic)</a></li>
+    </ul>
+</nav>
 
-    <section id="home">
-        <h1>안녕하세요, <span>홍길동</span>입니다.</h1>
-        <p>새로운 기술을 배우고 문제를 해결하는 것을 즐기는 학생 개발자/디자이너입니다. 저의 성장 기록을 확인해보세요.</p>
-        <a href="#projects" class="btn">프로젝트 보기</a>
+<!-- Hero Section -->
+<header class="hero">
+    <h1>Hanseob Kim</h1>
+    <p class="role">Professor & Director of DXP Lab</p>
+</header>
+
+<main class="container">
+    <!-- About Section -->
+    <section class="about-card">
+        <h2><i class="fa-solid fa-user-tie"></i> About Me</h2>
+        <p>
+            인간과 컴퓨터의 상호작용(HCI)을 연구하며, 가상현실(VR) 및 증강현실(AR) 환경에서의 
+            사용자 경험 개선과 <strong>사이버멀미(Cybersickness) 저감 기술</strong>에 집중하고 있습니다. 
+            데이터 전처리 및 분석 역량을 바탕으로 국방(National Defense) 및 의료 등 다양한 도메인을 위한 초실감형 몰입 기술을 탐구합니다.
+        </p>
     </section>
 
-    <section id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-grid">
-            <div class="about-img">[프로필 사진 위치]</div>
-            <div class="about-text">
-                <h3>열정 가득한 학생, 홍길동입니다.</h3>
-                <p>학교에서 다양한 전공 지식을 쌓아왔으며, 이론에만 그치지 않고 실제 결과물을 만들어내는 프로세스에 흥미를 느끼고 있습니다. 팀원들과 협동하여 시너지를 내는 것을 좋아합니다.</p>
-                <ul class="info-list">
-                    <li><strong>소속:</strong> OO대학교 OOO학과</li>
-                    <li><strong>이메일:</strong> email@example.com</li>
-                    <li><strong>생년월일:</strong> 200X. XX. XX</li>
-                    <li><strong>깃허브:</strong> github.com/username</li>
-                </ul>
+    <h2 class="section-title">Research Interests</h2>
+    
+    <!-- Cards Section -->
+    <section class="card-grid">
+        <!-- Card 1 -->
+        <article class="card">
+            <img src="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&w=600&q=80" alt="VR Headset" class="card-img">
+            <div class="card-content">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>XR for National Defense</h3>
+                <p>국방 훈련을 위한 초실감형 메타버스 인터페이스 연구 및 인공지능 기반 인간 검증 데이터셋 구축.</p>
             </div>
-        </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Data Analysis" class="card-content-img card-img">
+            <div class="card-content">
+                <i class="fa-solid fa-eye"></i>
+                <h3>Cybersickness Mitigation</h3>
+                <p>시선 추적(Eye-tracking) 및 시각/햅틱 피드백을 활용한 자율주행 및 VR 환경 내 사이버멀미 분석 및 저감 솔루션.</p>
+            </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="Medical Technology" class="card-img">
+            <div class="card-content">
+                <i class="fa-solid fa-bed-pulse"></i>
+                <h3>Digital Therapeutics</h3>
+                <p>병상 환자(Bedridden Patients) 및 교통약자를 위한 VR 기반 치료/편의 기술 및 상호작용 인터페이스 설계.</p>
+            </div>
+        </article>
     </section>
 
-    <section id="skills">
-        <h2 class="section-title">Skills</h2>
-        <div class="skills-container">
-            <div class="skill-badge">HTML5 / CSS3</div>
-            <div class="skill-badge">JavaScript</div>
-            <div class="skill-badge">React</div>
-            <div class="skill-badge">Python</div>
-            <div class="skill-badge">Git & GitHub</div>
-            <div class="skill-badge">Figma</div>
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2 class="section-title">Projects</h2>
-        <div class="project-grid">
-            
-            <div class="project-card">
-                <div class="project-img">[Project 1 Image]</div>
-                <div class="project-info">
-                    <h3>포트폴리오 웹사이트</h3>
-                    <p>나를 소개하고 프로젝트들을 아카이빙하기 위해 제작한 반응형 원페이지 포트폴리오 사이트입니다.</p>
-                    <div class="project-tags">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>Vanilla JS</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-img">[Project 2 Image]</div>
-                <div class="project-info">
-                    <h3>학급/팀 프로젝트 관리 앱</h3>
-                    <p>학생들이 일정을 공유하고 업무를 분담할 수 있도록 돕는 웹 애플리케이션 토이 프로젝트입니다.</p>
-                    <div class="project-tags">
-                        <span>React</span>
-                        <span>Node.js</span>
-                        <span>MongoDB</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-img">[Project 3 Image]</div>
-                <div class="project-info">
-                    <h3>데이터 분석 프로젝트</h3>
-                    <p>공공 데이터를 활용하여 우리 동네의 트렌드를 분석하고 시각화한 프로젝트입니다.</p>
-                    <div class="project-tags">
-                        <span>Python</span>
-                        <span>Pandas</span>
-                        <span>Matplotlib</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <footer id="contact">
-        <h2>Let's Work Together!</h2>
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h2>Let's Connect</h2>
+        <p style="margin-top: 10px; color: var(--text-light);">연구 협력이나 DXP 연구실에 관심이 있으시다면 언제든 연락주세요.</p>
         <div class="contact-links">
-            <a href="mailto:email@example.com">Email</a> |
-            <a href="https://github.com" target="_blank">GitHub</a> |
-            <a href="https://velog.io" target="_blank">Blog</a>
+            <a href="mailto:example@korea.ac.kr" class="btn btn-fill">
+                <i class="fa-solid fa-envelope"></i> Email Me
+            </a>
+            <a href="https://github.com" class="btn btn-outline" target="_blank">
+                <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="#" class="btn btn-outline">
+                <i class="fa-solid fa-globe"></i> Lab Website
+            </a>
         </div>
-        <p>&copy; 2026. 홍길동. All rights reserved.</p>
-    </footer>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Hanseob Kim & DXP Lab. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
